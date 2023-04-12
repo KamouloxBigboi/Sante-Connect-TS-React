@@ -147,7 +147,7 @@ class App extends Component<Props, State> {
           </Routes>
         </div>
 
-        { /*<AuthVerify logOut={this.logOut}/> */}
+        {/* {<AuthVerify logOut={this.logOut}/>} */}
       </div>
     );
   }

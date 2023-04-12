@@ -1,4 +1,5 @@
 import { Component } from "react";
+import axios from "axios";
 
 import UserService from "../services/user.service";
 
@@ -21,25 +22,26 @@ export default class Home extends Component<Props, State> {
     UserService.getPublicContent().then(
       response => {
         this.setState({
-          content: response.data
+          content: response.data.message
         });
       },
-      error => {
-        this.setState({
-          content:
-            (error.response && error.response.data) ||
-            error.message ||
-            error.toString()
+      );
+      
+      axios.get('http://localhost:8081')
+        .then(response => {
+          console.log(response.data.message);
+        })
+        .catch(error => {
+          console.log(error);
         });
-      }
-    );
   }
 
   render() {
+    const { content } = this.state;
     return (
       <div className="container">
         <header className="jumbotron">
-          <h3>{this.state.content}</h3>
+          <h3>{content}</h3>
         </header>
       </div>
     );

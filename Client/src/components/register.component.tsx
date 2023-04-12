@@ -7,15 +7,15 @@ import AuthService from "../services/auth.service";
 type Props = {};
 
 type State = {
-  username: string,
-  email: string,
-  age: number,
-  password: string,
-  gender: string,
-  occupation: string,
-  country: string,
-  successful: boolean,
-  message: string
+              username: string,
+              email: string,
+              age: number,
+              password: string,
+              gender: string,
+              occupation: string,
+              country: string,
+              successful: boolean,
+              message: string
 };
 
 export default class Register extends Component<Props, State> {
@@ -84,14 +84,13 @@ export default class Register extends Component<Props, State> {
       successful: false
     });
 
-    AuthService.register(
-                          username,
-                          email,
-                          password,
-                          age,
-                          gender,
-                          occupation,
-                          country
+    AuthService.register(username,
+                        email,
+                        password,
+                        age,
+                        gender,
+                        occupation,
+                        country
     ).then(
       response => {
         this.setState({
@@ -118,16 +117,15 @@ export default class Register extends Component<Props, State> {
   render() {
     const { successful, message } = this.state;
 
-    const initialValues = {
-      username: "",
-      email: "",
-      password: "",
-      age: 0,
-      gender: "",
-      occupation: "",
-      country: "",
-      successful: false,
-      message: "",
+    const initialValues = {username: "",
+                          email: "",
+                          password: "",
+                          age: 0,
+                          gender: "",
+                          occupation: "",
+                          country: "",
+                          successful: false,
+                          message: "",
     };
 
     return (
@@ -141,7 +139,7 @@ export default class Register extends Component<Props, State> {
 
           <Formik
             initialValues={initialValues}
-            validationSchema={this.validationSchema}
+            validationSchema={this.validationSchema()}
             onSubmit={this.handleRegister}
           >
             <Form>
@@ -252,11 +250,11 @@ export default class Register extends Component<Props, State> {
                       successful ? "alert alert-success" : "alert alert-danger"
                     }
                     role="alert"
-                  >
+                  > 
                     {message}
                   </div>
                 </div>
-              )}
+              )} 
             </Form>
           </Formik>
         </div>

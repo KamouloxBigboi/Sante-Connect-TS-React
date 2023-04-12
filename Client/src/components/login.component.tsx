@@ -7,12 +7,11 @@ import AuthService from "../services/auth.service";
 
 type Props = {};
 
-type State = {
-  redirect: string | null,
-  email: string,
-  password: string,
-  loading: boolean,
-  message: string
+type State = {redirect: string | null,
+              email: string,
+              password: string,
+              loading: boolean,
+              message: string
 };
 
 export default class Login extends Component<Props, State> {
@@ -20,12 +19,11 @@ export default class Login extends Component<Props, State> {
     super(props);
     this.handleLogin = this.handleLogin.bind(this);
 
-    this.state = {
-      redirect: null,
-      email: "",
-      password: "",
-      loading: false,
-      message: ""
+    this.state = {redirect: null,
+                  email: "",
+                  password: "",
+                  loading: false,
+                  message: ""
     };
   }
 
@@ -70,6 +68,10 @@ export default class Login extends Component<Props, State> {
             error.response.data.message) ||
           error.message ||
           error.toString();
+          
+          console.log(error);
+          console.log(error.response.data);
+
 
         this.setState({
           loading: false,
@@ -102,7 +104,7 @@ export default class Login extends Component<Props, State> {
 
           <Formik
             initialValues={initialValues}
-            validationSchema={this.validationSchema}
+            validationSchema={this.validationSchema()}
             onSubmit={this.handleLogin}
           >
             <Form>
@@ -131,14 +133,14 @@ export default class Login extends Component<Props, State> {
                   {loading && (
                     <span className="spinner-border spinner-border-sm"></span>
                   )}
-                  <span>Login</span>
+                  <span> Se connecter </span>
                 </button>
               </div>
 
               {message && (
                 <div className="form-group">
                   <div className="alert alert-danger" role="alert">
-                    {message}
+                   {message}
                   </div>
                 </div>
               )}

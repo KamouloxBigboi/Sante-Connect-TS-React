@@ -3,11 +3,13 @@ import axios from "axios";
 const API_URL = "http://localhost:8081/api/auth/";
 
 class AuthService {
-  login(email: string, password: string) {
+  login(email: string, password: string,) {
     return axios
       .post(API_URL + "login", {
         email,
         password
+      }, {
+        timeout: 5000
       })
       .then(response => {
         if (response.data.accessToken) {
