@@ -64,6 +64,6 @@ export default class Profile extends Component<Props, State> {
             </ul>
           </div> : null}
       </div>
-    );
+    ); 
   }
 }

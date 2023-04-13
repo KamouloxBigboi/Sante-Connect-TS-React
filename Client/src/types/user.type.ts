@@ -5,7 +5,5 @@ export default interface IUser {
   password?: string,
   age?: number,
   gender?: string,
-  occupation?: string,
-  country?: string,
   roles?: Array<string>
 }

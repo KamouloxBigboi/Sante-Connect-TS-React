@@ -41,8 +41,8 @@ export default class Login extends Component<Props, State> {
 
   validationSchema() {
     return Yup.object().shape({
-      email: Yup.string().required("This field is required!"),
-      password: Yup.string().required("This field is required!"),
+      email: Yup.string().required("Veuillez compléter ce champ"),
+      password: Yup.string().required("Veuillez compléter ce champ"),
     });
   }
 

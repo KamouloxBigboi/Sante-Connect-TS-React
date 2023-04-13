@@ -9,10 +9,8 @@ type Props = {};
 type State = {
               username: string,
               email: string,
-              age: number,
+              age: any,
               password: string,
-              gender: string,
-              occupation: string,
               country: string,
               successful: boolean,
               message: string
@@ -27,9 +25,7 @@ export default class Register extends Component<Props, State> {
       username: "",
       email: "",
       password: "",
-      age: 0,
-      gender: "",
-      occupation: "",
+      age: undefined,
       country: "",
       successful: false,
       message: ""
@@ -61,37 +57,41 @@ export default class Register extends Component<Props, State> {
             val.toString().length <= 40
         )
         .required("Veuillez compléter ce champs!"),
+      age: Yup.number()
+        .typeError("L'âge doit être un nombre.")
+        .required("Veuillez compléter ce champ!"),
     });
   }
 
   handleRegister(formValue: { username: string; 
                               email: string; 
                               password: string; 
-                              age: number; 
-                              gender: string; 
-                              occupation: string; 
-                              country: string }) {
+                              age: any; 
+                              country: string;
+                            }) {
     const { username,
             email,
             password,
             age,
-            gender,
-            occupation,
-            country } = formValue;
+            country
+          } = formValue;
 
     this.setState({
       message: "",
       successful: false
     });
 
-    AuthService.register(username,
-                        email,
-                        password,
-                        age,
-                        gender,
-                        occupation,
-                        country
-    ).then(
+    if (Number.isNaN((age))){
+      alert("L'âge doit être un nombre !")
+      console.log("L'âge doit être un nombre !")
+      
+    } else { 
+      AuthService.register(username,
+                           email,
+                           password,
+                           age,
+                           country
+    ).then( 
       response => {
         this.setState({
           message: response.data.message,
@@ -111,21 +111,19 @@ export default class Register extends Component<Props, State> {
           message: resMessage
         });
       }
-    );
+    )};
   }
 
   render() {
     const { successful, message } = this.state;
 
     const initialValues = {username: "",
-                          email: "",
-                          password: "",
-                          age: 0,
-                          gender: "",
-                          occupation: "",
-                          country: "",
-                          successful: false,
-                          message: "",
+                           email: "",
+                           password: "",
+                           age: undefined,
+                           country: "",
+                           successful: false,
+                           message: "",
     };
 
     return (
@@ -194,36 +192,7 @@ export default class Register extends Component<Props, State> {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="gender"> Sexe/Genre - facultatif </label>
-                    <Field
-                      name="gender"
-                      type="gender"
-                      className="form-control"
-                    />
-                    <ErrorMessage
-                      name="gender"
-                      component="div"
-                      className="alert alert-danger"
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="occupation"> Profession </label>
-                    <Field
-                      name="occupation"
-                      type="occupation"
-                      className="form-control"
-                    />
-                    <ErrorMessage
-                      name="occupation"
-                      component="div"
-                      className="alert alert-danger"
-                    />
-                  </div>
-
-
-                  <div className="form-group">
-                    <label htmlFor="country"> Pays </label>
+                    <label htmlFor="country"> Pays (facultatif) </label>
                     <Field
                       name="country"
                       type="country"
@@ -235,8 +204,7 @@ export default class Register extends Component<Props, State> {
                       className="alert alert-danger"
                     />
                   </div>
-
-
+                  
                   <div className="form-group">
                     <button type="submit" className="btn btn-primary btn-block"> Inscription </button>
                   </div>

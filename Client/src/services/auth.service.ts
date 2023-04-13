@@ -1,23 +1,21 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8081/api/auth/";
+const API_URL = "http://localhost:5000/api/auth/";
 
 class AuthService {
-  login(email: string, password: string,) {
-    return axios
+  async login(email: string, 
+              password: string,) {
+    const response = await axios
       .post(API_URL + "login", {
         email,
         password
       }, {
         timeout: 5000
-      })
-      .then(response => {
-        if (response.data.accessToken) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-        }
-
-        return response.data;
       });
+    if (response.data.accessToken) {
+      localStorage.setItem("user", JSON.stringify(response.data));
+    }
+    return response.data;
   }
 
   logout() {
@@ -28,17 +26,13 @@ class AuthService {
            email: string,
            password: string, 
            age: number, 
-           gender: string, 
-           occupation: string, 
-           country: string) {
-    return axios.post(API_URL + "register", {
-      username,
-      email,
-      password,
-      age,
-      gender,
-      occupation,
-      country
+           country: string
+           ) {
+    return axios.post(API_URL + "register", {username,
+                                             email,
+                                             password,
+                                             age,
+                                             country
     });
   }
 

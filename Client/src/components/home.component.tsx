@@ -22,15 +22,16 @@ export default class Home extends Component<Props, State> {
     UserService.getPublicContent().then(
       response => {
         this.setState({
-          content: response.data.message
+          content: response.data
         });
       },
       );
       
-      axios.get('http://localhost:8081')
+      axios.get('http://localhost:5000/api/content/all')
         .then(response => {
           console.log(response.data.message);
         })
+        
         .catch(error => {
           console.log(error);
         });
