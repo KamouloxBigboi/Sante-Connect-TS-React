@@ -6,13 +6,11 @@ const Role = db.role;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
-module.exports.signup = (req, res) => {
+module.exports.register = (req, res) => {
   const user = new User({username: req.body.username,
                          email: req.body.email,
                          password: bcrypt.hashSync(req.body.password, 8),
                          age: req.body.age,
-                         gender: req.body.gender,
-                         occupation: req.body.occupation,
                          country: req.body.country
   });
 
@@ -20,6 +18,8 @@ module.exports.signup = (req, res) => {
     if (err) {
       res.status(500).send({ message: err });
       return;
+    } else {
+      res.status(200).json({message: "Utilisateur enregistré" })
     }
 
     if (req.body.roles) {
@@ -40,7 +40,7 @@ module.exports.signup = (req, res) => {
               return;
             }
 
-            res.send({ message: "L'utilisateur a été enregistré avec succès!" });
+            res.send({ message: "L''utilisateur a été enregistré avec succès!" });
           });
         }
       );
@@ -65,7 +65,7 @@ module.exports.signup = (req, res) => {
   });
 };
 
-module.exports.signin = (req, res) => {
+module.exports.login = (req, res) => {
   User.findOne({
     email: req.body.email
   })
@@ -92,7 +92,7 @@ module.exports.signin = (req, res) => {
         });
       }
 
-      var token = jwt.sign({ id: user.id }, config.secret, {
+      var token = jwt.sign({ id: user._id }, config.secret, {
         expiresIn: 86400 // 24 heures
       });
 
@@ -102,8 +102,8 @@ module.exports.signin = (req, res) => {
         authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
       }
         res.status(200).send({id: user._id,
+                              username: user.username,
                               email: user.email,
-                              password: user.password,
                               roles: authorities,
                               accessToken: token
       });

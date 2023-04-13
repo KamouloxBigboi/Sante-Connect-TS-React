@@ -1,8 +1,8 @@
+const jwt = require("jsonwebtoken");
+const config = require('../config/authConfig');
 const db = require('../models');
 const User = db.user;
-const Role = db.user;
-const config = require('../config/authConfig');
-const jwt = require("jsonwebtoken");
+const Role = db.role;
 
 // Fonction qui vérifie si l'utilisateur est toujours connecté
 
@@ -46,7 +46,7 @@ verifyToken = (req, res, next) => {
             }
           }
   
-          res.status(403).send({ message: "Erreur : nécessite le rôle d'administrateur!" });
+          res.status(403).send({ message: "Erreur : nécessite le statut d'administrateur!" });
           return;
         }
       );
@@ -77,7 +77,7 @@ verifyToken = (req, res, next) => {
             }
           }
   
-          res.status(403).send({ message: "Erreur : nécessite le rôle de modérateur " });
+          res.status(403).send({ message: "Erreur : nécessite le statut de modérateur " });
           return;
         }
       );

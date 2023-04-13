@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const bcrypt = require('bcrypt');
 
 // Fonction email valide (regex)
 
@@ -20,7 +19,7 @@ const UserSchema = new mongoose.Schema({
       trim: true,
       lowercase: true,
       unique: true,
-      required: [false, "Pour l'inscription, votre adresse email est requise"],
+      required: [false, "Pour l'inscription, l'adresse email est requise"],
       validate: [validateEmail, " Merci d'inscrire un email valide "],
       match: [/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+$/gm]
   },
@@ -32,28 +31,23 @@ const UserSchema = new mongoose.Schema({
    
     age: {
       type: Number,
-      required: [true, "Pour l'inscription sur cette appli, il faut avoir 16 ans et plus"],
-      min: 16
+      required: [true, "Pour t'inscrire sur cette appli, il faut avoir au moins 14 ans !"],
+      min: 14
   },
-
-    gender: String,
-
-    occupation: String,
 
     country: {
       type: String,
-      required: true
   },
 
     roles: [
       {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Role"
+      ref: "roles"
     }
   ],
 });
 
 
-const User = mongoose.model("users", UserSchema);
+const User = mongoose.model("user", UserSchema);
 
 module.exports = User;

@@ -13,13 +13,13 @@ module.exports = function(app) {
 
   app.post("/api/auth/register",
     [
-      verifySignUp.checkDuplicateEmail,
+      verifySignUp.checkDuplicateUsernameOrEmail,
       verifySignUp.checkRolesExisted
     ], (req, res) => {
-    controller.signup(req, res)
+      controller.register(req, res)
     });
-
-  app.post("/api/auth/login", (req, res) => {
-    controller.signin(req, res)
+    
+    app.post("/api/auth/login", (req, res) => {
+      controller.login(req, res)
   });
 };

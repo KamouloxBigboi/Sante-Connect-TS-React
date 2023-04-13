@@ -14,20 +14,9 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", (req, res) => {
-  res.json({message: "Bienvenue sur l'application Santé Connect"})
-});
-
-require('./routes/authRouter')(app);
-require('./routes/userRouter')(app);
 
 const db = require('./models');
 const Role = db.role;
-
-const PORT = process.env.PORT || 8081;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
-});
 
 mongoose.set('strictQuery', false)
 
@@ -46,10 +35,22 @@ db.mongoose
   process.exit();
 });
 
-function initial() { 
-    
-  Role.estimatedDocumentCount((err, count) => {
+app.get("/", (req, res) => {
+  res.json({message: "Bienvenue sur l'application Santé Connect"})
+});
 
+require('./routes/authRouter')(app);
+require('./routes/userRouter')(app);
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});
+
+function initial() { 
+  
+  Role.estimatedDocumentCount((err, count) => {
+    
     // Création du rôle 'utilisateur'
     if (!err && count === 0) {
       new Role({

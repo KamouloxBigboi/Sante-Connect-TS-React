@@ -1,8 +1,20 @@
 const db = require("../models");
-const ROLES = db.ROLES;
 const User = db.user;
+const ROLES = db.ROLES;
 
-checkDuplicateEmail = (req, res, next) => {
+checkDuplicateUsernameOrEmail = (req, res, next) => {
+  User.findOne({
+    username: req.body.username
+  }).exec((err, user) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+
+    if (user) {
+      res.status(400).send({ message: "Erreur! Compte déjà existant avec ce nom d'utilisateur!" });
+      return;
+    }
 
     User.findOne({
     email: req.body.email
@@ -19,6 +31,7 @@ checkDuplicateEmail = (req, res, next) => {
 
     next();
     });
+  });
 };
 
 checkRolesExisted = (req, res, next) => {
@@ -26,7 +39,7 @@ checkRolesExisted = (req, res, next) => {
       for (let i = 0; i < req.body.roles.length; i++) {
         if (!ROLES.includes(req.body.roles[i])) {
           res.status(400).send({
-            message: `Erreur! Ce rôle de ${req.body.roles[i]} n'existe pas!`
+            message: `Erreur! Le statut de ${req.body.roles[i]} n'existe pas!`
           });
           return;
         }
@@ -37,7 +50,7 @@ checkRolesExisted = (req, res, next) => {
 };
 
 const verifySignUp = {
-    checkDuplicateEmail,
+    checkDuplicateUsernameOrEmail,
     checkRolesExisted
   };
   

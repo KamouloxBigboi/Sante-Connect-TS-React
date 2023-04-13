@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const Role = mongoose.model(
-  "Role",
+  "roles",
   new mongoose.Schema({
     name: String
   })
