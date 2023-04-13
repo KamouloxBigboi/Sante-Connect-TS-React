@@ -37,7 +37,7 @@ export default class Register extends Component<Props, State> {
       username: Yup.string()
         .test(
           "len",
-          "The username must be between 3 and 20 characters.",
+          "Le nom d'utilisateur doit être compris entre 3 et 20 caractères",
           (val: any) =>
             val &&
             val.toString().length >= 3 &&
