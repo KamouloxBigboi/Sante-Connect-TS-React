@@ -13,3 +13,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.italic_info {
+  font-style: italic;
+  font-size: small;
+}
+
+.profile_main {
+  padding-left: 3.9%;
+  background-color: #e9ecef;
+}

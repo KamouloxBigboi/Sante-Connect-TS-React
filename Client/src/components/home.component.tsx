@@ -1,5 +1,4 @@
 import { Component } from "react";
-import axios from "axios";
 
 import UserService from "../services/user.service";
 
@@ -25,16 +24,7 @@ export default class Home extends Component<Props, State> {
           content: response.data
         });
       },
-      );
-      
-      axios.get('http://localhost:5000/api/content/all')
-        .then(response => {
-          console.log(response.data.message);
-        })
-        
-        .catch(error => {
-          console.log(error);
-        });
+    );
   }
 
   render() {

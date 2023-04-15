@@ -41,27 +41,35 @@ export default class Profile extends Component<Props, State> {
           <div>
             <header className="jumbotron">
               <h3>
-                <strong>{currentUser.username}</strong> Profile
+                Bienvenue sur votre profil, <strong>{currentUser.username}</strong> !
               </h3>
+              <p> Vous êtes sur la page qui centralise les informations et les données de votre compte </p>
+              <div className="italic_info"> Chez Santé Connect, nous tenons à la transparence de vos données </div>
             </header>
-            <p>
-              <strong>Token:</strong>{" "}
-              {currentUser.accessToken.substring(0, 20)} ...{" "}
-              {currentUser.accessToken.substring(currentUser.accessToken.length - 20)}
-            </p>
-            <p>
-              <strong>Id:</strong>{" "}
-              {currentUser.id}
-            </p>
-            <p>
-              <strong>Email:</strong>{" "}
-              {currentUser.email}
-            </p>
-            <strong>Authorities:</strong>
-            <ul>
-              {currentUser.roles &&
-                currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
-            </ul>
+            <main className="profile_main">
+              <p>
+                <strong>Token:</strong>{" "}
+                {currentUser.accessToken.substring(0, 20)} ...{" "}
+                {currentUser.accessToken.substring(currentUser.accessToken.length - 20)}
+              </p>
+              <p>
+                <strong>Votre identifiant unique :</strong>{" "}
+                {currentUser.id}
+              </p>
+              <p>
+                <strong>L'adresse Email lié à votre compte :</strong>{" "}
+                {currentUser.email}
+              </p>
+              <p>
+                <strong>L'adresse Email lié à votre compte :</strong>{" "}
+                {currentUser.age}
+              </p>
+              <strong>Votre statut au sein de la communauté :</strong>
+              <ul>
+                {currentUser.roles &&
+                  currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
+              </ul>
+            </main>
           </div> : null}
       </div>
     ); 
