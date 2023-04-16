@@ -60,10 +60,6 @@ export default class Profile extends Component<Props, State> {
                 <strong>L'adresse Email lié à votre compte :</strong>{" "}
                 {currentUser.email}
               </p>
-              <p>
-                <strong>L'adresse Email lié à votre compte :</strong>{" "}
-                {currentUser.age}
-              </p>
               <strong>Votre statut au sein de la communauté :</strong>
               <ul>
                 {currentUser.roles &&
