@@ -48,40 +48,30 @@ app.listen(PORT, () => {
 });
 
 function initial() { 
-  
-  Role.estimatedDocumentCount((err, count) => {
-    
-    // Création du rôle 'utilisateur'
-    if (!err && count === 0) {
-      new Role({
-        name: "user"
-      }).save(err => {
-        if (err) {
-          console.log("error", err);
-        }
+  Role.estimatedDocumentCount()
+    .then(count => {
+      if (count === 0) {
+        // Create 'user' role
+        new Role({
+          name: "user"
+        }).save()
+          .then(() => console.log("added 'user' to roles collection"))
+          .catch(err => console.log("error", err));
 
-        console.log("added 'user' to roles collection");
-      });
-      // Création du rôle  'modérateur'
-      new Role({
-        name: "moderator"
-      }).save(err => {
-        if (err) {
-          console.log("error", err);
-        }
+        // Create 'moderator' role
+        new Role({
+          name: "moderator"
+        }).save()
+          .then(() => console.log("added 'moderator' to roles collection"))
+          .catch(err => console.log("error", err));
 
-        console.log("added 'moderator' to roles collection");
-      });
-      // Création du rôle 'administrateur'
-      new Role({
-        name: "admin"
-      }).save(err => {
-        if (err) {
-          console.log("error", err);
-        }
-
-        console.log("added 'admin' to roles collection");
-      });
-    }
-  });
-};
+        // Create 'admin' role
+        new Role({
+          name: "admin"
+        }).save()
+          .then(() => console.log("added 'admin' to roles collection"))
+          .catch(err => console.log("error", err));
+      }
+    })
+    .catch(err => console.log("error", err));
+}
