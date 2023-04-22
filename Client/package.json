@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@jridgewell/sourcemap-codec": "^1.4.15",
     "@popperjs/core": "^2.11.7",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
@@ -23,7 +22,6 @@
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
     "svgo": "^3.0.2",
-    "typescript": "^5.0.4",
     "web-vitals": "^3.3.1",
     "yup": "^1.1.1"
   },
